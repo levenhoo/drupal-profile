@@ -438,7 +438,7 @@ function infinity_install() {
   // TODO: 所有content type设置Create new revision
 
 
-    /*path auto*/
+  /*path auto*/
   //admin/config/search/path/patterns
   variable_set('pathauto_node_pattern','[node:content-type]/[node:title]');
   variable_set('pathauto_node_article_pattern','content/[node:title]');
@@ -490,16 +490,115 @@ function infinity_install() {
 
 
   /*Wysiwyg*/
-    db_merge('wysiwyg')->key(array('format' => 'filtered_html'))->fields(array('editor' => 'tinymce',))->execute();
-    db_merge('wysiwyg')->key(array('format' => 'full_html'))->fields(array('editor' => 'tinymce',))->execute();
-    db_merge('wysiwyg')->key(array('format' => 'plain_text'))->fields(array('editor' => '',))->execute();
+  db_merge('wysiwyg')->key(array('format' => 'filtered_html'))->fields(array('editor' => 'tinymce',))->execute();
+  db_merge('wysiwyg')->key(array('format' => 'full_html'))->fields(array('editor' => 'tinymce',))->execute();
+  db_merge('wysiwyg')->key(array('format' => 'plain_text'))->fields(array('editor' => '',))->execute();
+
+  /* full html setting*/
+  $tinymce_setting = array();
+  $tinymce_full_html_buttons_setting = array(); 
+  $default = array();
+  /*buttons*/
+ 
+  $default['bold'] = 1;
+  $default['italic'] = 1 ;
+  $default['underline'] = 1 ;
+  $default['strikethrough'] = 1 ;
+  $default['justifyleft'] = 1 ;
+  $default['justifycenter'] = 1 ;
+  $default['justifyright'] = 1 ;
+  $default['justifyfull'] = 1 ;
+  $default['bullist'] = 1 ;
+  $default['numlist'] = 1 ;
+  $default['outdent'] = 1 ;
+  $default['indent'] = 1 ;
+  $default['undo'] = 1 ;
+  $default['redo'] = 1 ;
+  $default['link'] = 1 ;
+  $default['unlink'] = 1 ;
+  $default['anchor'] = 1 ;
+  $default['image'] = 1 ;
+  $default['cleanup'] = 1 ;
+  $default['formatselect'] = 1 ;
+  $default['styleselect'] = 1 ;
+  $default['fontselect'] = 1 ;
+  $default['fontsizeselect'] = 1 ;
+  $default['forecolor'] = 1 ;
+  $default['backcolor'] = 1 ;
+  $default['sup'] = 1 ;
+  $default['sub'] = 1 ;
+  $default['blockquote'] = 1 ;
+  $default['code'] = 1 ;
+  $default['hr'] = 1 ;
+  $default['cut'] = 1 ;
+  $default['copy'] = 1 ;
+  $default['paste'] = 1 ;
+  $default['removeformat'] = 1 ;
+
+  $tinymce_full_html_buttons_setting["default"] = $default;
+  $tinymce_full_html_buttons_setting["fullscreen"] = array('fullscreen' => 1 );
+  $tinymce_full_html_buttons_setting["paste"] = array('pastetext' => 1 );
+  $tinymce_full_html_buttons_setting["table"] = array('tablecontrols' => 1 );
+  $tinymce_full_html_buttons_setting["wordcount"] = array('wordcount' => 1 );
+  $tinymce_full_html_buttons_setting["imce"] = array('imce' => 1 );
+  $tinymce_full_html_buttons_setting["drupal"] = array('break' => 1 );
+  /*buttons*/
+
+  $tinymce_setting['default'] = 1;
+  $tinymce_setting['user_choose'] = 0;
+  $tinymce_setting['show_toggle'] = 1;
+  $tinymce_setting['theme'] ='advanced';
+  $tinymce_setting['language'] = 'en' ;
+  $tinymce_setting['buttons'] = $tinymce_full_html_buttons_setting ;
+  $tinymce_setting['toolbar_loc'] = 'top';
+  $tinymce_setting['toolbar_align'] = 'left' ;
+  $tinymce_setting['path_loc'] = 'button';
+  $tinymce_setting['resizing'] = 1;
+  $tinymce_setting['verify_html'] = 1 ;
+  $tinymce_setting['preformatted'] = 0;
+  $tinymce_setting['convert_fonts_to_spans'] = 1;
+  $tinymce_setting['remove_linebreaks'] = 1;
+  $tinymce_setting['apply_source_formatting'] = 0;
+  $tinymce_setting['paste_auto_cleanup_on_paste'] = 0;
+  $tinymce_setting['block_formats'] = 'p,address,pre,h2,h3,h4,h5,h6,div';
+  $tinymce_setting['css_setting'] = 'theme';
+  $tinymce_setting['css_path'] = '';
+  $tinymce_setting['css_classes'] = '' ; 
+
+  /*full*/
+   db_merge('wysiwyg')->key(array('format' => 'full_html'))->fields(array('editor' => 'tinymce','settings' => serialize($tinymce_setting),))->execute();
+
+  unset($default); 
+
+  $default = array(); 
+  $default['bold'] = 1;
+  $default['italic'] = 1 ;
+  $default['undo'] = 1 ;
+  $default['unlink'] = 1 ;
+  $default['image'] = 1 ; 
+  $default['fontselect'] = 1 ;
+  $default['fontsizeselect'] = 1 ;
+  $default['backcolor'] = 1 ;
+  $default['blockquote'] = 1 ;
+  $default['cut'] = 1 ;
+  $default['copy'] = 1 ; 
 
 
-   /*file system*/ 
-     variable_set( 'file_public_path' , 'sites/default/files' );
-     variable_set( 'file_private_path' , 'sites/default/files/private' );
-     variable_set( 'file_temporary_path' , 'sites/default/files/tmp' );
-     variable_set( 'file_default_scheme' , 'public' );
+  /*filtered*/
+  $tinymce_filtered_html_buttons_setting = array(); 
+  $tinymce_filtered_html_buttons_setting["default"] = $default;  
+  $tinymce_setting['buttons'] = $tinymce_filtered_html_buttons_setting ;
 
-     
+    db_merge('wysiwyg')->key(array('format' => 'filtered_html'))->fields(array('editor' => 'tinymce','settings' => serialize($tinymce_setting),))->execute();
+
+
+
+  /*file system*/ 
+  variable_set( 'file_public_path' , 'sites/default/files' );
+  variable_set( 'file_private_path' , 'sites/default/files/private' );
+  variable_set( 'file_temporary_path' , 'sites/default/files/tmp' );
+  variable_set( 'file_default_scheme' , 'public' );
+
 }
+
+
