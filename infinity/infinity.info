@@ -20,8 +20,7 @@ dependencies[] = shortcut
 dependencies[] = toolbar
 dependencies[] = field_ui
 dependencies[] = file
-dependencies[] = rdf
-
+dependencies[] = rdf 
 
 ; Install other contributed modules first.
 dependencies[] = pathauto
@@ -39,3 +38,4 @@ dependencies[] = pathologic
 dependencies[] = token
 dependencies[] = backup_migrate
 dependencies[] = libraries
+dependencies[] = linkchecker

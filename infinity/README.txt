@@ -1,27 +1,15 @@
-//
+Infintiy installation profile
+ 
+Update:leven 2014.09.04
 
-Drupal Infinity (Dev) - Installation profile
+step1 下载最新版的drupal并解压
 
-Author:leven
-Update:2014.09.04
+step2 使用drush下载以下module
+drush pm-download wysiwyg,views,ctools,devel,block_class,admin_menu,imce,imce_wysiwyg,menu_block,menu_attributes,pathauto,pathologic,token,backup_migrate,libraries,linkchecker
 
-DEPENDENCIES:
-http://drupal.org/project/addressfield
-http://drupal.org/project/admin_menu
-http://drupal.org/project/commerce
-http://drupal.org/project/ctools
-http://drupal.org/project/entity
-http://drupal.org/project/rules
-http://drupal.org/project/views
+step3 点击以下链接下载 TinyMCE 3.5.11 解压到 /site/all/libraries/
+http://www.tinymce.com/download/download.php
 
-Using Drush: 
+step4 把infinity文件夹COPY到/profiles/下
 
-//setp1 下载以下组件
-drush pm-download wysiwyg,views,ctools,devel,block_class,admin_menu,imce,imce_wysiwyg,menu_block,menu_attributes,pathauto,pathologic,token,backup_migrate,libraries
-
-//setp2 点击以下链接下载 TinyMCE 3.5.11 解压到 /site/all/libraries/tinymce
-http://www.tinymce.com/download/download.php 
-
-//step3 把infinity文件夹COPY到/profiles/下
-
-//step4 开始安装
+step5 开始安装
